@@ -1,0 +1,17 @@
+{
+  "Database": {
+    "Host": "localhost",
+    "Port": 5432,
+    "Database": "db",
+    "Username": "user",
+    "Password": "pass"
+  },
+
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*"
+}
