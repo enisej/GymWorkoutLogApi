@@ -66,7 +66,7 @@ namespace GymWorkoutLogApi.Data
                     Notes = rnd.Next(0, 4) == 0 ? "Feeling strong today!" : null
                 };
 
-                // Katrai sesijai 4–7 random vingrinājumi
+                // Katrai sesijai 4-7 random vingrinājumi
                 var exercisesInSession = allExercises.OrderBy(x => rnd.Next()).Take(rnd.Next(4, 8)).ToList();
 
                 foreach (var ex in exercisesInSession)

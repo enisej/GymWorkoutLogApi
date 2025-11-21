@@ -15,7 +15,7 @@ namespace GymWorkoutLogApi.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Exercise ↔ BodyPart many-to-many
+            // Exercise AND BodyPart many-to-many
             modelBuilder.Entity<Exercise>()
                 .HasMany(e => e.BodyParts)
                 .WithMany(b => b.Exercises)

@@ -45,7 +45,7 @@ namespace GymWorkoutLogApi.Controllers
             return ex == null ? NotFound() : Ok(ex);
         }
 
-        // POST /api/exercises – izveidot jaunu
+        // POST /api/exercises izveidot jaunu
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CreateExerciseDto dto)
         {
@@ -62,11 +62,11 @@ namespace GymWorkoutLogApi.Controllers
             _db.Exercises.Add(exercise);
             await _db.SaveChangesAsync();
 
-            // Atgriežam tikai ID un vārdu – bez cikliem!
+            // Atgriežam tikai ID un vārdu bez cikliem!
             return CreatedAtAction(nameof(Get), new { id = exercise.Id }, new { exercise.Id, exercise.Name });
         }
 
-        // PUT /api/exercises/5 – update
+        // PUT /api/exercises/5 update
         [HttpPut("{id:int}")]
         public async Task<ActionResult> Update(int id, [FromBody] CreateExerciseDto dto)
         {
