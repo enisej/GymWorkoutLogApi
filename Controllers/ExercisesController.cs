@@ -1,6 +1,5 @@
 ﻿using GymWorkoutLogApi.Data;
 using GymWorkoutLogApi.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,11 +12,11 @@ namespace GymWorkoutLogApi.Controllers
         private readonly AppDbContext _db;
         public ExercisesController(AppDbContext db) => _db = db;
 
-        // GET /api/exercises – visi vingrinājumi ar bodyPart ID un nosaukumiem
+        // GET /api/exercises
         [HttpGet]
         public async Task<ActionResult> GetAll()
             => Ok(await _db.Exercises
-                .Select(e => new
+               .Select(e => new
                 {
                     e.Id,
                     e.Name,

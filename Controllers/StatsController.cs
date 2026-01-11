@@ -1,6 +1,4 @@
 ﻿using GymWorkoutLogApi.Data;
-using GymWorkoutLogApi.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

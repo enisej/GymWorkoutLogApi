@@ -35,7 +35,14 @@ namespace GymWorkoutLogApi.Controllers
             var bp = new BodyPart { Name = dto.Name };
             _db.BodyParts.Add(bp);
             await _db.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetAll), new { id = bp.Id }, new { bp.Id, bp.Name });
+            return CreatedAtAction(nameof(GetAll), new
+            {
+                id = bp.Id
+            }, new
+            {
+                bp.Id,
+                bp.Name
+            });
         }
 
         // DELETE /api/bodyparts/5
@@ -43,7 +50,8 @@ namespace GymWorkoutLogApi.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var bp = await _db.BodyParts.FindAsync(id);
-            if (bp == null) return NotFound();
+            if (bp == null)
+                return NotFound();
             _db.BodyParts.Remove(bp);
             await _db.SaveChangesAsync();
             return NoContent();

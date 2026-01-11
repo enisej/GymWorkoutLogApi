@@ -1,5 +1,4 @@
 ﻿using System.Text.Json.Serialization;
-using System.Text.Json;
 using GymWorkoutLogApi.Data;
 using GymWorkoutLogApi.Database;
 using Microsoft.EntityFrameworkCore;

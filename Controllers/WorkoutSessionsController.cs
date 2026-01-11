@@ -1,8 +1,8 @@
-﻿using GymWorkoutLogApi.Data;
+﻿using System.Text.Json;
+using GymWorkoutLogApi.Data;
 using GymWorkoutLogApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 
 namespace GymWorkoutLogApi.Controllers
 {
@@ -10,10 +10,8 @@ namespace GymWorkoutLogApi.Controllers
     [Route("api/sessions")]
     public class WorkoutSessionsController : ControllerBase
     {
-
         private readonly AppDbContext _db;
         public WorkoutSessionsController(AppDbContext db) => _db = db;
-
 
         [HttpPost("query")]
         public async Task<IActionResult> Query([FromBody] JsonElement filter)
@@ -81,9 +79,10 @@ namespace GymWorkoutLogApi.Controllers
                     {
                         l.Id,
                         l.SetNumber,
+                        ExerciseId = l.ExerciseId,  // ← ADDED THIS
                         ExerciseName = l.Exercise!.Name,
-                        l.WeightKg,
-                        l.Reps,
+                        WeightKg = l.WeightKg,
+                        Reps = l.Reps,
                         l.Notes
                     })
                 })
@@ -110,9 +109,10 @@ namespace GymWorkoutLogApi.Controllers
                     {
                         l.Id,
                         l.SetNumber,
+                        ExerciseId = l.ExerciseId,  // ← ADDED THIS
                         ExerciseName = l.Exercise!.Name,
-                        l.WeightKg,
-                        l.Reps,
+                        WeightKg = l.WeightKg,
+                        Reps = l.Reps,
                         l.Notes
                     })
                 })
@@ -144,7 +144,15 @@ namespace GymWorkoutLogApi.Controllers
             _db.WorkoutSessions.Add(session);
             await _db.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(Get), new { id = session.Id }, new { session.Id, session.Date, session.Name });
+            return CreatedAtAction(nameof(Get), new
+            {
+                id = session.Id
+            }, new
+            {
+                session.Id,
+                session.Date,
+                session.Name
+            });
         }
 
         // PUT /api/sessions/5 – update
@@ -152,7 +160,8 @@ namespace GymWorkoutLogApi.Controllers
         public async Task<ActionResult> Update(int id, [FromBody] CreateSessionDto dto)
         {
             var session = await _db.WorkoutSessions.FindAsync(id);
-            if (session == null) return NotFound();
+            if (session == null)
+                return NotFound();
 
             session.Date = dto.Date;
             session.Name = dto.Name;
@@ -167,7 +176,8 @@ namespace GymWorkoutLogApi.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var session = await _db.WorkoutSessions.FindAsync(id);
-            if (session == null) return NotFound();
+            if (session == null)
+                return NotFound();
 
             _db.WorkoutSessions.Remove(session);
             await _db.SaveChangesAsync();
